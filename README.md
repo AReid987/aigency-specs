@@ -2,6 +2,10 @@
 
 Shared bootstrap repository for all Aigency products.
 
+## Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/d823ccb3ec1fdcc02cf8ab5ecea17e91d26757dd.svg "Repobeats analytics image")
+
 ## Purpose
 
 This repo is the foundation every other Aigency repo pulls from on init via `just setup`. It holds:
