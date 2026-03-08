@@ -6,6 +6,49 @@
 
 ---
 
+## GUIDING PRINCIPLES (AI CODER CONSTITUTION)
+
+All agents operating in this repository are governed by the AI Coder Constitution located at `constitutions/AI-CODER-CONSTITUTION.md`. The following principles are non-negotiable:
+
+### The Five Pillars of Autonomy
+
+| Pillar | Concept | Mandate |
+| :--- | :--- | :--- |
+| **Autonomy** | Never Ask, Never Wait | Make informed decisions. Do not pause for permission. |
+| **Context** | Memory > Reasoning | Accurate state is more valuable than raw intelligence. Read before acting. |
+| **Verification** | Evidence over Assertions | Nothing is "done" until a Quality Gate passes. Words are not proof. |
+| **Atomicity** | Small, Saveable Steps | Break every task into atomic units. Commit incrementally. |
+| **Constraints** | Rules = Speed | Strict gates prevent the bug-fix death spiral. Follow them. |
+
+### The Decide-Act-Verify Loop
+
+Every task follows this cycle — no exceptions:
+
+1. **Decide (Reason):** Look at the goal, pick the highest-priority task.
+2. **Act:** Perform the task (write a file, run a command).
+3. **Reflect:** Look at the output. Did it work as expected?
+4. **Verify:** Check the Quality Gate (lint passes, file exists, test green).
+5. **Repeat** until the goal is complete.
+
+### Quality Gates
+
+A task is not "Done" until it passes all applicable gates:
+
+- **Gate 1 (Syntax):** The artifact is valid (markdown renders, code runs, JSON parses).
+- **Gate 2 (Logic):** The artifact satisfies the spec it was built from.
+- **Gate 3 (Security):** No credentials, secrets, or vulnerabilities introduced.
+- **Gate 4 (Consensus):** A second agent or reviewer has signed off.
+
+### Memory Tiers
+
+Agents must be aware of which memory tier they are operating in:
+
+- **Volatile (CONTINUITY):** What am I doing right now? What went wrong last turn? Lives in `.planning/continuity.md`.
+- **Long-Term (LEDGERS):** Permanent decision record. Lives in `.planning/ledger.md`. Every architectural decision must be logged here.
+- **On-Demand Skills:** Do not load all instructions at once. Use `.claude/skills-index.json` to load only the skill needed for the current task.
+
+---
+
 ## WHO READS THIS FILE
 
 All agents: Ruflo (claude-flow), Gemini CLI, Kimi Code CLI, iFlow, Letta Code.
@@ -36,12 +79,12 @@ This is a docs + planning repo only.
 
 ### Routing Logic
 
-- New feature or architecture question -> Gemini CLI first
-- Active coding task or multi-step implementation -> Kimi Code CLI
-- Wave coordination, memory, agent-to-agent handoff -> Ruflo
-- Interactive planning session or diagram -> iFlow
-- Cross-session memory recall or state persistence -> Letta Code
-- When in doubt -> Ruflo orchestrates, delegates as needed
+- **New feature or architecture question** -> Gemini CLI first
+- **Active coding task or multi-step implementation** -> Kimi Code CLI
+- **Wave coordination, memory, agent-to-agent handoff** -> Ruflo
+- **Interactive planning session or diagram** -> iFlow
+- **Cross-session memory recall or state persistence** -> Letta Code
+- **When in doubt** -> Ruflo orchestrates, delegates as needed
 
 ---
 
@@ -62,24 +105,24 @@ This is a docs + planning repo only.
 
 ## BEHAVIORAL CONSTRAINTS (ALL AGENTS)
 
-1. Read before writing. Always read the relevant spec doc before producing any artifact.
-2. No guessing. If a requirement is ambiguous, add it to .planning/prp.md section 9 (Open Questions). Do not invent answers.
-3. No application code. Do not write .py, .ts, or .js files in packages/ unless explicitly instructed by Antonio.
-4. No install commands. Do not run just setup, just dev, npm install, pip install, or any package manager commands.
-5. Artifacts go in .planning/. All sprint-generated files (PRPs, wave plans, backlogs, audits) go in .planning/ only.
-6. Addendum v2 is authoritative. Where docs/meta-code-squad-addendum-v2.md conflicts with the master spec, addendum v2 wins.
-7. Token budget awareness. Track token usage against quotas defined in addendum v2. Flag if a task will exceed quota before starting.
-8. Handoff protocol. When handing off to another agent, write a handoff note to .planning/handoffs/<timestamp>-<from>-to-<to>.md.
+1. **Read before writing.** Always read the relevant spec doc before producing any artifact.
+2. **No guessing.** If a requirement is ambiguous, add it to `.planning/prp.md` section 9 (Open Questions). Do not invent answers.
+3. **No application code.** Do not write .py, .ts, or .js files in packages/ unless explicitly instructed by Antonio.
+4. **No install commands.** Do not run `just setup`, `just dev`, `npm install`, `pip install`, or any package manager commands.
+5. **Artifacts go in .planning/.** All sprint-generated files (PRPs, wave plans, backlogs, audits) go in `.planning/` only.
+6. **Addendum v2 is authoritative.** Where `docs/meta-code-squad-addendum-v2.md` conflicts with the master spec, addendum v2 wins.
+7. **Token budget awareness.** Track token usage against quotas defined in addendum v2. Flag if a task will exceed quota before starting.
+8. **Handoff protocol.** When handing off to another agent, write a handoff note to `.planning/handoffs/<timestamp>-<from>-to-<to>.md`.
 
 ---
 
 ## SPRINT WORKFLOW OVERVIEW
 
 1. Ruflo reads AGENTS.md, CLAUDE.md, and all docs/ specs
-2. Ruflo runs the planning sprint prompt (docs/phase-3-planning-sprint-prompt.md)
+2. Ruflo runs the planning sprint prompt (`docs/phase-3-planning-sprint-prompt.md`)
 3. Artifacts produced: router-audit, PRP, wave-plan, sprint-1-backlog, skills-map
 4. Antonio reviews and approves the plan
-5. Ruflo kicks off Wave 1 via just dev
+5. Ruflo kicks off Wave 1 via `just dev`
 6. Agents execute tasks per wave-plan.json, writing results to .planning/
 7. Ruflo coordinates handoffs, tracks memory via Letta, escalates blockers to Antonio
 
@@ -88,7 +131,8 @@ This is a docs + planning repo only.
 ## KEY DOCUMENTS
 
 | Document | Path | Purpose |
-|----------|------|---------||
+|----------|------|---------|  
+| AI Coder Constitution | constitutions/AI-CODER-CONSTITUTION.md | Canonical autonomous agent principles |
 | Master System Spec | docs/meta-code-squad-master-system-spec.md | Full harness architecture |
 | Addendum v2 | docs/meta-code-squad-addendum-v2.md | Authoritative overrides + skills strategy |
 | Phase 3 Planning Prompt | docs/phase-3-planning-sprint-prompt.md | Sprint planning instructions |
@@ -99,13 +143,13 @@ This is a docs + planning repo only.
 | SimpleLLMRouter Spec | docs/simplellmrouter-v2-spec.md | Router v2 specification |
 | Tool Inventory | docs/meta-code-squad-tool-inventory.md | All tools and versions |
 | Ruflo Integration Guide | docs/ruflo-master-integration-guide.md | Ruflo setup and usage |
-| CLAUDE.md | CLAUDE.md | Ruflo-specific constitution |
-| GEMINI.md | GEMINI.md | Gemini CLI constitution |
+| CLAUDE.md | constitutions/CLAUDE.md | Ruflo-specific constitution |
+| GEMINI.md | docs/GEMINI.md | Gemini CLI constitution |
 
 ---
 
 ## CONTACT / ESCALATION
 
-All blockers, ambiguities, and open questions escalate to: Antonio Reid
+All blockers, ambiguities, and open questions escalate to: **Antonio Reid**
 Telegram: @ReidTheArchitect
 Do not proceed past a blocker without Antonio's sign-off.
