@@ -1,3 +1,5 @@
+> **Canonical location:** This file is also available at `architecture/agentic-tooling-integration-strategy.md`. The `architecture/` version is authoritative. This copy in `docs/` is retained for backwards compatibility.
+
 # Agentic Tooling Integration Strategy
 ## Loki + BMAD + Maestra + Superset + Letta + Overstory + ROMA
 **Date:** 2026-03-05 | **Owner:** Antonio Reid
@@ -284,7 +286,7 @@ Sequence:
 1. You assign task "deploy to Vercel with lighthouse check"
 2. Orchestrator delegates → worker completes
 3. Next day, same task structure, different branch
-4. Orchestrator spawns → same worker sequence
+4. Orchestrator delegates → same worker sequence
 5. On third repetition, orchestrator prompts: "Create reusable skill?"
 6. You approve → new skill added to the agent's toolkit automatically
 
